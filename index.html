@@ -186,13 +186,35 @@
         <div class="content has-text-justified">
           <p>
             Using offline RL, we train a goal-conditioned Q-function that outputs the likelihood of a goal occuring after following a specified thought at 
-            some state.
+            some state. Note that by training over embeddings of thoughts, rather than raw environment actions, our Q-function is very light-weight and 
+            quick to train (a 3-layer fully-connected network).
           </p>
         </div>
         <div class="content has-text-centered">
+          <figure>
           <img src="./static/images/training.png"
                  class="training-image"
                  alt="Training pipeline."/>
+           <figcaption>Schematic illustrating how goal-conditioned Q-function is trained.</figcaption>
+           </figure>
+        </div>
+        <!-- Inference. -->
+        <h3 class="title is-4">Inference</h3>
+        <div class="content has-text-justified">
+          <p>
+            During inference, our goal-conditioned Q-function augments the reasoning capabilities of base LLM agents via a natural language critic. The critic 
+            assesses future positive and negative outcomes and their probabilities. This evaluation can be used in an iteraitive self-refinement procedure that
+            allows the LLM agent to improve its thoughts. Note that this is significantly quicker than competing methods that require tree search in order to evaluate
+            actions. 
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <figure>
+          <img src="./static/images/inference.png"
+                 class="inference-image"
+                 alt="Inference pipeline."/>
+           <figcaption>Schematic illustrating how our natural language critic is used to allow an LLM agent to refine its thoughts during inference.</figcaption>
+           </figure>
         </div>
       </div>
     </div>
